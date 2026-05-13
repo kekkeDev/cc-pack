@@ -8,6 +8,12 @@
 |---|---|
 | [ui-repro](./skills/ui-repro/) | スクリーンショットから UI を高精度に再現する言語化ファーストのワークフロー |
 
+## Hooks
+
+| Hook | 説明 |
+|---|---|
+| [grep-tips](./hooks/grep-tips/) | `grep` / `rg` / `Grep` 実行前に grep の盲点ガイダンスを注入する PreToolUse hook |
+
 ## インストール
 
 各サブディレクトリの README を参照してください。

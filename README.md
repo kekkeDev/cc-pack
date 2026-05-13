@@ -8,6 +8,12 @@ A pack of customizations for [Claude Code](https://claude.ai/code).
 |---|---|
 | [ui-repro](./skills/ui-repro/) | Reproduce UI from screenshots with high fidelity using a verbalization-first workflow |
 
+## Hooks
+
+| Hook | Description |
+|---|---|
+| [grep-tips](./hooks/grep-tips/) | PreToolUse hook that injects grep blind-spot guidance before `grep` / `rg` / `Grep` invocations |
+
 ## Installation
 
 See each subdirectory's README for installation instructions.
