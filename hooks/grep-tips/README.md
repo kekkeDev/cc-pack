@@ -84,6 +84,16 @@ Claude receives `additionalContext` and uses it when deciding how to execute (or
 
 If the snippet file is missing, the hook exits with status 0 and produces no output, so tool execution proceeds normally — graceful degradation.
 
+### Defense-in-depth filtering
+
+The hook script does its own subcommand-prefix check on `tool_input.command`, so the snippet is injected only when a subcommand actually starts with `grep` or `rg`. Words like `grep` appearing inside a commit message, echo argument, or other quoted text do not trigger the injection. This protects against `if:` matcher edge cases.
+
+Detection rule: the regex
+```
+(^|(&&|||;||&||))[[:space:]]*([A-Za-z_][A-Za-z0-9_]*=[^[:space:]]*[[:space:]]+)*(grep|rg)([[:space:]]|$)
+```
+matches `grep` / `rg` only at the head of a pipeline or immediately after a subcommand separator (`&&`, `||`, `;`, `|`, `|&`), optionally preceded by `VAR=value` environment assignments.
+
 ## Customizing the snippet
 
 Edit `~/.claude/snippets/grep-tips.md` directly. No need to touch the hook script — the snippet is read on every invocation.
