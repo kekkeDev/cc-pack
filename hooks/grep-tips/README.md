@@ -2,12 +2,12 @@
 
 A [Claude Code](https://claude.ai/code) **PreToolUse hook** that injects grep blind-spot guidance before `grep` / `rg` / `Grep` invocations.
 
-Reminds Claude (and yourself) that **"not found by grep" is not proof of "doesn't exist"**. Text-based search misses:
+Reminds Claude (and yourself) of two common grep-related false negatives:
 
-- Catch-all re-exports / autoloads / dynamic imports
-- Generated / transpiled / minified code
-- Files outside the search scope (binaries, `.gitignore`'d paths, other packages)
-- Notation variations (case, encoding, path layout)
+1. **"not found by grep" is not proof of "doesn't exist"** — text-based search misses re-exports, generated/transpiled code, out-of-scope files (archives, binaries, `.gitignore`'d paths), and notation variations
+2. **"I didn't grep the usages" is not proof of "no side effects"** — editing a provider, declaration, config value, or fixture without first finding its consumers is the same kind of unverified leap
+
+The injected snippet also covers practical scope-verification steps (archive inclusion, binary exclusion, pipe pre-filtering, stderr mixing) and a directional rule for "is it used / can I change it / can I delete it" decisions.
 
 ## Files
 

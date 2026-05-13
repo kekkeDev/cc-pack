@@ -2,12 +2,12 @@
 
 [Claude Code](https://claude.ai/code) の **PreToolUse hook**。`grep` / `rg` / `Grep` 実行前に「grep の盲点」を注意するスニペットを context に注入する。
 
-「grep にヒットしない = 存在しない」の誤推論を防ぐ。grep が見逃すもの:
+grep にまつわる 2 種類の False Negative を Claude（と自分）にリマインドする:
 
-- catch-all 系の一括公開 / re-export / autoload / 動的読み込み
-- 生成・トランスパイル・minify 等の変換成果物
-- 検索範囲外（バイナリ、`.gitignore` 配下、別パッケージ・別 layer）
-- 表記揺れ（case・encoding・パス階層）
+1. **「ヒットしない」=「存在しない」ではない** — テキスト検索は re-export / 生成・トランスパイル成果物 / 検索範囲外（archive / binary / `.gitignore` 配下）/ 表記揺れ等を見逃す
+2. **「利用箇所を grep していない」=「副作用は無い」ではない** — provider / 定義 / 設定値 / fixture 等を、利用側を先に洗わずに編集するのは、同じ未検証の飛躍
+
+スニペットには検索範囲の実践的チェック（archive 含む / binary 除外 / pipe 上流の事前絞り / stderr 混入）と、「使えるか / 変えたいか / 消して良いか」の意思決定ルールも含まれる。
 
 ## ファイル
 
